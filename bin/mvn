@@ -1,0 +1,18 @@
+#! /bin/sh
+
+if [ -z $M2_HOME ]
+then
+ echo "Variable d'environnement M2_HOME non renseignée"
+  exit 1
+fi
+
+#THREAD="-T 2.0C"
+
+exec $M2_HOME/bin/mvn $THREAD $@ | sed \
+	-e "s/Tests run: \([^,]*\), Failures: \([^,]*\), Errors: \([^,]*\), Skipped: \([^,]*\)/\\o33[1;32mTests run: \1\\o33[0m, Failures: \\o33[1;31m\2\\o33[0m, Errors: \\o33[1;33m\3\\o33[0m, Skipped: \\o33[1;34m\4\\o33[0m/g" \
+	-e "s/\(\[INFO\]\)\(.*FAILURE.*\)/\\o33[1;31m\1\\o33[0;31m\2\\o33[0m/g" \
+	-e "s/\(\[WARN\]\)\(.*\)/\\o33[1;33m\1\\o33[0;33m\2\\o33[0m/g" \
+	-e "s/\(\[WARNING\]\)\(.*\)/\\o33[1;33m\1\\o33[0;33m\2\\o33[0m/g" \
+	-e "s/\(\[INFO\]\)\(.*[^(FAILURE)]\)/\\o33[1;32m\1\\o33[0;32m\2\\o33[0m/g" \
+		  -e "s/\(\[ERROR\]\)\(.*\)/\\o33[1;31m\1\\o33[0;31m\2\\o33[0m/g" \
+		  -e "s/\(Downloading.*\)/\\o33[1;36m\1\\o33[0m/g"  
