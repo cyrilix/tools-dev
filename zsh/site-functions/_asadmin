@@ -1,0 +1,107 @@
+#compdef asadmin asadmin-btw asadmin-rec
+
+local curcontext="$curcontext" state line cmds ret=1 
+local domains applications completionargs cmd kwd
+local _listConfigValue
+typeset -A opt_args
+
+_arguments -C \
+    '(- 1 *)'{-\\?,--help}'[display help information]' \
+    '(-H --host)'{-H+,--host=-}'[The machine name where the DAS is running]::_hosts' \
+    '(-p --port 1)'{-p+,--port=-}'[The HTTP port or HTTPS  port  for  administration]' \
+    '1: :->cmds' \
+    '*: :->args' && ret=0
+
+currentHost=$opt_args[-H]
+if  [ -z $currentHost ] ; then currentHost=$opt_args[--host]; fi
+if [ -z $currentHost ] ; then
+	currentHost="localhost"
+fi
+currentPort=$opt_args[-p]
+if  [ -z $currentPort ] ; then currentPort=$opt_args[--port]; fi
+if [ -z $currentPort ] ; then
+    currentPort="4848"
+fi
+
+asadminCmd="$GLASSFISH_HOME/bin/asadmin --host="$currentHost" --port="$currentPort
+
+# Set list config key in "completionargs" array
+_listConfigValue () {
+	kwd=$1
+	cmd=\"$kwd".*\"";
+	completionargs=($(_call_program values $asadminCmd get $cmd 2>/dev/null| grep -v "Command list" |grep "$kwd"| cut -f1 -d=  ))
+	#completionargs[@]+=($(_call_program values $asadminCmd list $cmd 2>/dev/null| grep -v "Command list" |grep "$kwd"))
+	if [ -z $completionargs[@] ] ; then
+	    cmd=\"$kwd"*\""
+	    completionargs=($(_call_program values $asadminCmd get $cmd 2>/dev/null | grep -v "Command list" |grep "$kwd"| cut -f1 -d= ))	
+	fi
+	
+	return 
+    }
+
+    
+    
+case $state in
+  cmds)
+	cmds=(
+	    start-domain:"starts a domain"
+	    stop-domain:"stop a domain"
+	    list-domains:"list the domains"
+	    deploy:"deploys the specified component"
+	    undeploy:"undeploys the specified component"
+            list-applications:"lists deployed applications"	    
+	    list-jvm-options:"lists options for the Java application launcher"
+	    create-jvm-options:"creates options for the Java application launcher"
+	    delete-jvm-options:"removes Java application launcher options"
+	    list:"lists the elements that can be configured"
+	    get:"gets the values of configurable or monitorableattributes"
+	    set:"sets the values of configurable attributes"
+	    )
+   _describe -t commands ' asadmin command' cmds && ret=0
+  ;;
+  args)
+    case $line[1] in
+      start-domain)
+	  domains=($(_call_program values $asadminCmd list-domains| grep "Not Running"|cut -d \  -f2 2>/dev/null)) 
+	 
+	  _arguments -C \
+	      "--debug=-[start in debug mode]:mode debug:('true' 'false')" \
+	      "*:domain:compadd $domains" \
+              && return 0
+     ;;
+     stop-domain)
+	domains=($(_call_program values asadmin list-domains| grep "Status: Running"|cut -d \  -f2 2>/dev/null)) 
+	compadd $domains && return 0
+     ;;
+     deploy)
+	_arguments -C \
+	     "--name+[componant name]:name of the componant:" \
+	     "--force=-[force redeployment]: :(true false)" \
+	     "--context-root+[context root for a web module]" \
+	     "*:archive: _files -g '*(war|ear)(.)'" \
+	     && return 0
+	 ;;
+     undeploy)
+	 applications=($(_call_program values $asadminCmd list-applications | grep -v -e "^$" | grep -v "Command list" | cut -f1 -d\ ))
+	 compadd $applications && return 0 
+	 ;;
+     create-jvm-options)
+	 _arguments -C \
+	     "*:jvm option:" && return 0
+	 ;;
+     list|[gs]et)
+	 # TODO: check --monitor option
+	 kwd=$line[2]
+	 _listConfigValue $kwd
+	 compadd -X \"list values\" -- $completionargs && return 0
+	 ;;
+      *)
+        (( ret )) && _message 'no more arguments'
+      ;;
+    esac
+    ;;	
+esac
+
+return ret
+_asadmin "$0"
+

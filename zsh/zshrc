@@ -1,0 +1,279 @@
+# /etc/zshrc ou ~/.zshrc
+# Fichier de configuration principal de zsh
+# Formation Debian GNU/Linux par Alexis de Lattre
+# http://www.via.ecp.fr/~alexis/formation-linux/
+
+#
+# 1. Les alias
+#
+
+#  Gestion du ls : couleur + touche pas aux accents
+alias ls='ls --classify --tabsize=0 --literal --color=auto --show-control-chars --human-readable'
+alias lc='ls --classify --tabsize=0 --literal --color=always --show-control-chars --human-readable'
+
+# Demande confirmation avant d'écraser un fichier
+alias cp='cp --interactive'
+alias mv='mv --interactive'
+#alias rm='rm --interactive'
+
+# Raccourcis pour 'ls'
+alias ll='ls -l'
+alias llc='ls -l --color=always'
+alias la='ls -a'
+alias lac='ls -a --color=always'
+alias lla='ls -la'
+alias llac='ls -la --color=always'
+
+# Quelques alias pratiques
+alias c='clear'
+alias less='less --quiet -R'
+alias s='cd ..'
+alias df='df --human-readable'
+alias du='du --human-readable'
+alias grec='egrep --color=always'
+
+#APT
+alias apts='aptitude search'
+alias aptsh='aptitude show'
+alias apti='aptitude install'
+alias aptp='aptitude purge'
+alias aptr='aptitude remove'
+alias aptd='aptitude dist-upgrade'
+alias aptu='aptitude update'
+
+alias sshr='ssh -X root@127.0.0.1'
+
+#
+# 2. Prompt et D�finition des touches
+#
+
+# exemple : ma touche HOME, cf man termcap, est codifiee K1 (upper left
+# key on keyboard) dans le /etc/termcap. En me referant a l'entree
+# correspondant a mon terminal (par exemple 'linux') dans ce fichier, je
+# lis : K1=\E[1~, c'est la sequence de caracteres qui sera envoyee au
+# shell. La commande bindkey dit simplement au shell : a chaque fois que
+# tu rencontres telle sequence de caractere, tu dois faire telle action.
+# La liste des actions est disponible dans "man zshzle".
+
+# Correspondance touches-fonction
+bindkey -e
+bindkey '^A'    beginning-of-line       # Home
+bindkey '^E'    end-of-line             # End
+bindkey '^D'    delete-char             # Del
+bindkey '[3~' delete-char             # Del
+bindkey '[2~' overwrite-mode          # Insert
+bindkey '[5~' history-search-backward # PgUp
+bindkey '[6~' history-search-forward  # PgDn
+
+# Prompt couleur (la couleur n'est pas la m�me pour le root et
+# pour les simples utilisateurs)
+autoload -U colors
+colors
+
+# The eight base colors are: black, red, green, yellow, blue, magenta, cyan,
+# and white. Each of these has codes for foreground and background.
+# In addition there are eight intensity attributes:
+#           bold, faint, standout, underline, blink, reverse, and conceal.
+# Finally, there are six codes used to negate attributes:
+#           none (reset all attributes to the defaults),
+#           normal (neither bold nor faint),
+#           no-standout,
+#           no-underline,
+#           no-blink,
+#           no-reverse.
+
+NONE="%{$reset_color%}"
+NOIR="%{$fg_bold[black]%}"
+ROUGE="%{$fg_bold[red]%}"
+VERT="%{$fg_bold[green]%}"
+BLEU="%{$fg_bold[blue]%}"
+JAUNE="%{$fg_bold[yellow]%}"
+CYAN="%{$fg_bold[cyan]%}"
+VIOLET="%{$fg_bold[magenta]%}"
+BLANC="%{$fg_bold[white]%}"
+
+# Couleur du host
+COLOR_HOST=$VERT
+
+# Gestionaire de version
+setopt PROMPT_SUBST
+
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' formats ' %f(%s) %F{cyan}%r%F{5}[%F{2}%b:%S%F{5}]%f'
+zstyle ':vcs_info:*' disable bzr cdv darcs mtn svk tla
+zstyle ':vcs_info:*' enable git cvs svn
+#zstyle ':vcs_info:(svn|bzr):*' branchformat '%b%{'${fg[yellow]}'%i%}:%r'
+# Versionning du home => pas d'info
+zstyle ':vcs_info:*:cyrille' formats "$VERT%~$JAUNE"
+zstyle  ':vcs_info:*' nvcsformats "$VERT%~$JAUNE"
+precmd () { vcs_info }
+
+
+if [ "`id -u`" -eq 0 ]; then
+  export PS1='$VIOLET%T $BLEU%n$JAUNE@$COLOR_HOST%m$NONE${vcs_info_msg_0_}$JAUNE%#$NONE '
+else
+  export PS1='$VIOLET%T $ROUGE%n$JAUNE@$COLOR_HOST%m$NONE${vcs_info_msg_0_}$JAUNE%#$NONE '
+fi
+
+# Console linux, dans un screen ou un rxvt
+if [ "$TERM" = "linux" -o "$TERM" = "screen" -o "$TERM" = "rxvt" ]
+then
+  # Correspondance touches-fonction spécifique
+  bindkey '[1~' beginning-of-line       # Home
+  bindkey '[4~' end-of-line             # End
+fi
+
+# xterm
+if [ "$TERM" = "xterm" ]
+then
+  # Correspondance touches-fonction spécifique
+  bindkey '[H'  beginning-of-line       # Home
+  bindkey '[F'  end-of-line             # End
+fi
+
+# Gestion de la couleur pour 'ls' (exportation de LS_COLORS)
+if [ -x /usr/bin/dircolors ]
+then
+  if [ -r ~/.dir_colors ]
+  then
+    eval "`dircolors ~/.dir_colors`"
+  elif [ -r /etc/dir_colors ]
+  then
+    eval "`dircolors /etc/dir_colors`"
+  fi
+fi
+
+#
+# 3. Options de zsh (cf 'man zshoptions')
+#
+
+# Je ne veux JAMAIS de beeps
+unsetopt beep
+unsetopt hist_beep
+unsetopt list_beep
+
+# Ctrl+D est équivalent à 'logout'
+unsetopt ignore_eof
+# Affiche le code de sortie si différent de '0'
+setopt print_exit_value
+# Demande confirmation pour 'rm *'
+unsetopt rm_star_silent
+
+# Correction orthographique des commandes
+# Désactivé car, contrairement à ce que dit le "man", il essaye de
+# corriger les commandes avant de les hasher
+#setopt correct
+
+# Schémas de complétion
+
+# - Schéma A :
+# 1ère tabulation : complète jusqu'au bout de la partie commune
+# 2ème tabulation : propose une liste de choix
+# 3ème tabulation : complète avec le 1er item de la liste
+# 4ème tabulation : complète avec le 2ème item de la liste, etc...
+# -> c'est le schéma de complétion par défaut de zsh.
+
+# Schéma B :
+# 1ère tabulation : propose une liste de choix et complète avec le 1er item
+#                   de la liste
+# 2ème tabulation : complète avec le 2ème item de la liste, etc...
+# Si vous voulez ce schéma, décommentez la ligne suivante :
+# setopt menu_complete
+
+# Schéma C :
+# 1ère tabulation : complète jusqu'au bout de la partie commune et
+#                   propose une liste de choix
+# 2ème tabulation : complète avec le 1er item de la liste
+# 3ème tabulation : complète avec le 2ème item de la liste, etc...
+# Ce schéma est le meilleur à mon goût !
+# Si vous voulez ce schéma, décommentez la ligne suivante :
+unsetopt list_ambiguous
+# (Merci à Youri van Rietschoten de m'avoir donné l'info !)
+
+# Options de complétion
+# Quand le dernier caractère d'une complétion est '/' et que l'on
+# tape 'espace' après, le '/' est effaçé
+setopt auto_remove_slash
+# Fait la complétion sur les fichiers et répertoires cachés
+setopt glob_dots
+
+# Traite les liens symboliques comme il faut
+setopt chase_links
+
+# Quand l'utilisateur commence sa commande par '!' pour faire de la
+# complétion historique, il n'exécute pas la commande immédiatement
+# mais il écrit la commande dans le prompt
+setopt hist_verify
+# Si la commande est invalide mais correspond au nom d'un sous-répertoire
+# exécuter 'cd sous-répertoire'
+setopt auto_cd
+# L'exécution de "cd" met le répertoire d'où l'on vient sur la pile
+setopt auto_pushd
+# Ignore les doublons dans la pile
+setopt pushd_ignore_dups
+# N'affiche pas la pile après un "pushd" ou "popd"
+setopt pushd_silent
+# "pushd" sans argument = "pushd $HOME"
+setopt pushd_to_home
+
+# Les jobs qui tournent en tâche de fond sont nicé à '0'
+unsetopt bg_nice
+# N'envoie pas de "HUP" aux jobs qui tourent quand le shell se ferme
+unsetopt hup
+
+#
+# 4. Param�tres de l'historique des commandes
+#
+# Nombre d'entr�es dans l'historique
+export HISTSIZE=500
+export SAVEHIST=500
+
+# Fichier o� est stock� l'historique
+export HISTFILE=~/.history
+setopt append_history
+setopt inc_append_history
+setopt extended_history
+setopt hist_find_no_dups
+setopt hist_ignore_all_dups
+setopt hist_reduce_blanks
+setopt hist_ignore_space
+setopt hist_no_store
+setopt hist_no_functions
+setopt no_hist_beep
+setopt hist_save_no_dups
+
+
+#
+# 5. Complétion des options des commandes
+#
+zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}'
+zstyle ':completion:*' max-errors 3 numeric
+zstyle ':completion:*' use-compctl false
+# Completion colorée
+zstyle ':completion:*' list-colors `dircolors`
+
+
+# Enable compsys completion.
+autoload -U compinit
+compinit
+autoload zsh-mime-setup
+
+
+alias e="emacs -nw"
+alias t="date +%Y%m%d"
+
+# Association de fichiers
+alias -s pdf='evince'
+alias -s jpg='display'
+alias -s png='display'
+alias -s gif='display'
+
+# Alias personnels
+if [ -f ~/.alias ]; then
+    .  $HOME/.alias
+fi
+
+#function commandlist { reply=(`cat ~/.asadmin-options`); }
+#compctl -K commandlist asadmin
+#set COMPLETE_ALIASES
+#
