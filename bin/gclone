@@ -1,0 +1,16 @@
+#/bin/sh
+. ~/.local_env
+REPO=$1
+HOST=$GERRIT_HOST
+
+if [ -z $REPO ] ; then
+	echo "Nom du dépôt non renseigné"
+	exit 1
+fi
+
+git clone git://$HOST/$REPO.git
+cd `basename $REPO`
+git remote set-url --push origin ssh://$HOST:29418/$REPO.git
+scp -p -P 29418 $HOST:hooks/commit-msg .git/hooks/
+
+cd ..
