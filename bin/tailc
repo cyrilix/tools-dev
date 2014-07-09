@@ -1,0 +1,89 @@
+#! /bin/bash
+
+ESCP=`echo -e "\033"`
+
+RESET="$ESCP[0m"
+
+ROUGE="$ESCP[0;31m"
+ROUGE_BOLD="$ESCP[1;31m"
+
+JAUNE="$ESCP[0;33m"
+JAUNE_BOLD="$ESCP[1;33m"
+
+VERT="$ESCP[0;32m"
+VERT_BOLD="$ESCP[1;32m"
+
+BLEU="$ESCP[0;36m"
+BLEU_BOLD="$ESCP[1;36m"
+
+filter_linux () {
+	exec tail $@ | sed \
+        	-e "
+	    		s/\(.*\)\(WARN\)\(.*\)/"$JAUNE"\1"$JAUNE_BOLD"\2"$JAUNE'\3'$RESET"/g
+	    		T error # Si la substitution échoue, on saute sur le motif erreur
+           		b # sinon on saute à la fin
+
+		: error # Début de colorisation des erreurs
+	    		s/\(.*\)\(ERROR\)\(.*\)/"$ROUGE"\1"$ROUGE_BOLD"\2"$ROUGE"\3"$RESET"/g 
+	    		T severe
+			b
+	    	: severe
+			s/\(.*\)\(SEVERE\)\(.*\)/"$ROUGE"\1"$ROUGE_BOLD"\2"$ROUGE"\3"$RESET"/
+			T info
+			b
+	    	: info
+	    		s/\(.*\)\(INFO\)\(.*\)/"$VERT"\1"$VERT_BOLD"\2"$VERT"\3"$RESET"/g
+	    		T debug
+			b
+
+	    	: debug
+        		s/\(.*\)\(DEBUG\)\(.*\)/"$BLEU"\1"$BLEU_BOLD"\2"$BLEU"\3"$RESET"/g
+			T fonctionnelle 
+			b	
+	    
+	    	: fonctionnelle
+	    		s/\(.* FONCTIONNELLE .*\)/"$JAUNE"&"$RESET"/g 
+			T technique
+			b
+
+             	: technique
+   	    		s/\(.* TECHNIQUE .*\)/"$ROUGE"&"$RESET"/g
+			T ok
+			b
+
+	     	: ok
+        		s/\(.* OK \)/"$VERT"&"$RESET"/g
+
+	"
+}
+
+filter_sun() {
+
+	exec tail $@ | sed \
+		        -e "s/\(.*\)\(WARN\)\(.*\)/"$JAUNE"\1"$JAUNE_BOLD"\2"$JAUNE"\3"$RESET"/g" \
+		        -e "s/\(.*\)\(ERROR\)\(.*\)/"$ROUGE"\1"$ROUGE_BOLD"\2"$ROUGE"\3"$RESET"/g" \
+			-e "s/\(.*\)\(SEVERE\)\(.*\)/"$ROUGE"\1"$ROUGE_BOLD"\2"$ROUGE"\3"$RESET"/g" \
+		        -e "s/\(.*\)\(FATAL\)\(.*\)/"$ROUGE"\1"$ROUGE_CLIGNOTANT"\2"$ROUGE"\3"$RESET"/g" \
+		        -e "s/\(.*\)\(INFO\)\(.*\)/"$VERT"\1"$VERT_BOLD"\2"$VERT"\3"$RESET"/g" \
+		        -e "s/\(.*\)\(DEBUG\)\(.*\)/"$BLEU"\1"$BLEU_BOLD"\2"$BLEU"\3"$RESET"/g" \
+		        -e "s/\(.* \| FONCTIONNELLE \| .*\)/"$JAUNE"\1"$RESET"/g" \
+		        -e "s/\(.* \| TECHNIQUE \| .*\)/"$ROUGE"\1"$RESET"/g" \
+		        -e "s/\(.* \| OK \| .*\)/"$VERT"\1"$RESET"/g" \
+		        -e "s/\(.* \| T-[0-9]* \| .*\)/"$ROUGE"\1"$RESET"/g" \
+		        -e "s/\(.* \| F-[0-9]* \| .*\)/"$JAUNE"\1"$RESET"/g" \
+
+}
+
+case `uname` in
+	'Linux') 
+		filter_linux $@
+		;;
+	'SunOS')
+		filter_sun $@
+		;;
+	*) # on ne fait rien de particulier
+		exec tail $@
+		;;
+esac
+
+
