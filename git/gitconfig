@@ -1,0 +1,37 @@
+[color]
+	branch = auto
+	diff = auto
+	interactive = auto
+	status = auto
+	ui = auto
+
+[i18n]
+	commitEncoding = UTF-8
+	logOutputEncoding = UTF-8
+[gui]
+	encoding = utf-8
+	spellingdictionary = none
+[merge]
+	tool = diffuse
+[http]
+	sslVerify = false
+	proxy = http://localhost:8888
+[diff]
+	tool = =
+	guitool = kompare
+
+[svn]
+    authorsfile = ~/.author-svn
+	rmdir = true
+
+[alias]
+	graphviz = "!f() { echo 'digraph git {' ; git log --pretty='format:  %h -> { %p }' \"$@\" | sed 's/[0-9a-f][0-9a-f]*/\"&\"/g' ; echo '}'; }; f"
+    dot = !sh -c 'git-dot'
+	co = checkout
+	history = log --all --graph --abbrev-commit --pretty=format:'%C(auto)%h [%ad] %d %s %C(reset) - %aN' --date=short
+[mergetool]
+	prompt = false
+	keepBackup = false
+[pull]
+	rebase = true
+[push] default = simple
