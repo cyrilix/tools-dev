@@ -61,5 +61,5 @@ au FileType xml setlocal equalprg="XMLLINT_INDENT=4 xmllint\ --format\ --recover
 set expandtab
 set tabstop=4
 " To change the number of space characters inserted for indentation, use the 'shiftwidth' option:
-:set shiftwidth=4
+set shiftwidth=4
 
