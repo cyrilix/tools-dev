@@ -63,3 +63,6 @@ set tabstop=4
 " To change the number of space characters inserted for indentation, use the 'shiftwidth' option:
 set shiftwidth=4
 
+" Désactivation du folding pour les fichiers markdown
+let g:vim_markdown_folding_disabled=1
+
