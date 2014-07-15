@@ -1,0 +1,18 @@
+#! /bin/bash
+
+# Create a git tag for each svn tag
+
+for branch in `git branch -r`; do
+    if [ `echo $branch | egrep "tags/.+$"` ]; then
+        version=`basename $branch`
+        subject=`git log -1 --pretty=format:"%s" $branch`
+        export GIT_COMMITTER_DATE=`git log -1 --pretty=format:"%ci" $branch`
+
+        echo "Tag $version [Y/n]?"
+        read yesno
+        if [ -z $yesno ] || [ $yesno = "Y" ]; then
+            git tag -f -m "$subject" "$version" "$branch^"
+            git branch -d -r $branch
+        fi
+    fi
+done
