@@ -263,7 +263,7 @@ alias e="emacs -nw"
 alias t="date +%Y%m%d"
 
 # Association de fichiers
-alias -s pdf='evince'
+alias -s pdf='okular'
 alias -s jpg='display'
 alias -s png='display'
 alias -s gif='display'
