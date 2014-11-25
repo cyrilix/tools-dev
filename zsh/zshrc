@@ -44,7 +44,7 @@ alias aptu='aptitude update'
 alias sshr='ssh -X root@127.0.0.1'
 
 #
-# 2. Prompt et D�finition des touches
+# 2. Prompt et Définition des touches
 #
 
 # exemple : ma touche HOME, cf man termcap, est codifiee K1 (upper left
@@ -65,7 +65,7 @@ bindkey '[2~' overwrite-mode          # Insert
 bindkey '[5~' history-search-backward # PgUp
 bindkey '[6~' history-search-forward  # PgDn
 
-# Prompt couleur (la couleur n'est pas la m�me pour le root et
+# Prompt couleur (la couleur n'est pas la même pour le root et
 # pour les simples utilisateurs)
 autoload -U colors
 colors
@@ -160,7 +160,7 @@ setopt print_exit_value
 unsetopt rm_star_silent
 
 # Correction orthographique des commandes
-# Désactivé car, contrairement à ce que dit le "man", il essaye de
+# Désactivé car, contrairement à  ce que dit le "man", il essaye de
 # corriger les commandes avant de les hasher
 #setopt correct
 
@@ -185,10 +185,10 @@ unsetopt rm_star_silent
 #                   propose une liste de choix
 # 2ème tabulation : complète avec le 1er item de la liste
 # 3ème tabulation : complète avec le 2ème item de la liste, etc...
-# Ce schéma est le meilleur à mon goût !
+# Ce schéma est le meilleur à  mon goût !
 # Si vous voulez ce schéma, décommentez la ligne suivante :
 unsetopt list_ambiguous
-# (Merci à Youri van Rietschoten de m'avoir donné l'info !)
+# (Merci à  Youri van Rietschoten de m'avoir donné l'info !)
 
 # Options de complétion
 # Quand le dernier caractère d'une complétion est '/' et que l'on
@@ -216,19 +216,19 @@ setopt pushd_silent
 # "pushd" sans argument = "pushd $HOME"
 setopt pushd_to_home
 
-# Les jobs qui tournent en tâche de fond sont nicé à '0'
+# Les jobs qui tournent en tâche de fond sont nicé à  '0'
 unsetopt bg_nice
 # N'envoie pas de "HUP" aux jobs qui tourent quand le shell se ferme
 unsetopt hup
 
 #
-# 4. Param�tres de l'historique des commandes
+# 4. Paramêtres de l'historique des commandes
 #
-# Nombre d'entr�es dans l'historique
+# Nombre d'entrées dans l'historique
 export HISTSIZE=500
 export SAVEHIST=500
 
-# Fichier o� est stock� l'historique
+# Fichier où est stocké l'historique
 export HISTFILE=~/.history
 setopt append_history
 setopt inc_append_history
