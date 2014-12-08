@@ -12,7 +12,7 @@ def main():
     mustContinue = True
     offset = 0
     while mustContinue: 
-        request = Request(redmine_api_key + '/users.json?offset='+str(offset))
+        request = Request(redmine_url + '/users.json?offset='+str(offset))
         request.add_header('X-Redmine-API-Key', redmine_api_key)
         offset = offset + 1
         try:
