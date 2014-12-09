@@ -3,6 +3,14 @@
 # Formation Debian GNU/Linux par Alexis de Lattre
 # http://www.via.ecp.fr/~alexis/formation-linux/
 
+
+is_cygwin() {
+    local uname
+    # Check we're running under cygwin
+    uname=`uname -s`
+    [[ $uname[0,6] == 'CYGWIN' ]]
+}
+
 #
 # 1. Les alias
 #
@@ -326,4 +334,38 @@ ZSH_THEME="cyrilix"
 plugins=(git git-prompt colorize mvn python ant colored-man docker glassfish gradle history jsontools jump mvn phing pip postgres rsync)
 
 source $ZSH/oh-my-zsh.sh
+
+start_server_x(){
+    export DISPLAY=:0
+    # Start xserver if necessary
+    xset -q > /dev/null
+    XSERVER_STATUS=$?
+    if [ 0 != $XSERVER_STATUS ] ; then
+        nohup XWin -multiwindow -clipboard 2>&1 > /dev/null &
+    fi
+}
+
+start_ssh_agent(){
+    # If no SSH agent is already running, start one now. Re-use sockets so we never
+    # have to start more than one session.
+
+    export SSH_AUTH_SOCK=$HOME/.ssh-socket
+
+    ssh-add -l >/dev/null 2>&1
+    if [ $? = 2 ]; then
+        # No ssh-agent running
+        rm -rf $SSH_AUTH_SOCK
+        # >| allows output redirection to over-write files if no clobber is set
+        ssh-agent -a $SSH_AUTH_SOCK >| /tmp/.ssh-script
+        source /tmp/.ssh-script
+        echo $SSH_AGENT_PID >| ~/.ssh-agent-pid
+        rm /tmp/.ssh-script
+    fi
+}
+
+# Start service for cygwin
+if is_cygwin; then
+    start_server_x
+    start_ssh_agent
+fi
 
