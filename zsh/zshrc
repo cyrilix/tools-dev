@@ -331,7 +331,7 @@ ZSH_THEME="cyrilix"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-prompt colorize mvn python ant colored-man docker glassfish gradle history jsontools jump mvn phing pip postgres rsync)
+plugins=(zsh-syntax-highlighting git git-prompt colorize mvn python ant colored-man docker glassfish gradle history jsontools jump mvn phing pip postgres rsync)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -344,6 +344,9 @@ start_server_x(){
         nohup XWin -multiwindow -clipboard 2>&1 > /dev/null &
     fi
 }
+
+export ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor root line)
+
 
 start_ssh_agent(){
     # If no SSH agent is already running, start one now. Re-use sockets so we never
