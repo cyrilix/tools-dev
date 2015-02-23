@@ -1,0 +1,11 @@
+#compdef rabbitmqctl
+ 
+typeset -A opt_args
+local context state line
+ 
+_arguments : \
+"*:argument:(stop stop_app start_app reset force_reset cluster status rotate_log s add_user delete_user change_password list_users add_vhost delete_vhost list_vho sts set_permissions clear_permissions list_permissions list_user_permissions list _queues list_exchanges list_bindings list_connections)" \
+&& return 0
+ 
+return 1;
+
