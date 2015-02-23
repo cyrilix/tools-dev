@@ -1,0 +1,74 @@
+#compdef buildr
+
+local curcontext="$curcontext" state line cmds ret=1 
+
+#_arguments -C \
+#    '(- 1 *)'{-h,-H,--help}'[display help information]' \
+#    '(-D --describe)'{-D,--describe}"[Describe the tasks (matching optional PATTERN), then exit]:pattern" \
+#    '(-E --execute)'{-E,--execute}"[Execute some Ruby code after loading the buildfile]:code" \
+#    '(-e --environment)'{-e,--environment}"[Environment name (e.g. development, test, production)]:env" \
+#    '(--generate)'{ ,--generate}"[Generate buildfile from either pom.xml file or directory path]:path" \
+#    '(-I --libdir)'{-I,--libdir}"[Include LIBDIR in the search path for required modules]:libdir" \
+#    '(-P --prereqs)'{-P,--prereqs}"[Display the tasks and dependencies (matching optional PATTERN), then exit]:pattern" \
+#    '(-q --quiet)'{-q,--quiet}"[Do not log messages to standard output]" \
+#    '(-f --buildfile)'{-f,--buildfile}"[Use FILE as the buildfile]:file" \
+#    '(-R --rakelibdir --rakelib)'{-R,--rakelibdir,--rakelib}"[Auto-import any .rake files in PATH. (default is 'tasks')]:path" \
+#    '(-r --require)'{-r,--require}"[Require MODULE before executing rakefile]:module" \
+#    '(--rules)'{--rules}"[Trace the rules resolution]" \
+#    '(-N --no-search --nosearch)'{-N,--no-search,--nosearch}"[Do not search parent directories for the Rakefile]" \
+#    '(-s --silent)'{-s,--silent}"[Like --quiet, but also suppresses the 'in directory' announcement]" \
+#    '(-T --tasks)'{-T,--tasks}"[Display the tasks (matching optional PATTERN) with descriptions, then exit]:pattern" \
+#    '(-t --trace)'{-t,--trace}"[Turn on invoke/execute tracing, enable full backtrace]:categories" \
+#    '(-v --verbose)'{-v,--verbose}"[Log message to standard output (default)]" \
+#    '(-V --version)'{-V,--version}"[Display the program version]" \
+#    '(-o --offline)'{-o,--offline}"[Do not try to download anything]" \
+#    '(-u --update-snapshots)'{-u,--update-snapshots}"[Force updating all dependencies whose version contains SNAPSHOT]" \
+#    '*: :->cmds' \
+#    '-*: :->args' && ret=0
+_arguments -C '*: :->cmds' && ret=0
+
+case $state in
+  cmds)
+	cmds=(
+        artifacts:"Download all artifacts"
+        artifacts\\:javadoc:"Download all artifacts' javadoc"
+        artifacts\\:sources:"Download all artifacts' sources"
+        assets:"Prepare the assets"
+        build:"Build the project"
+        cc:"Execute continuous compilation, listening to changes"
+        clean:"Clean files generated during a build"
+        compile:"Compile all projects"
+        default:"The default task is build"
+        doc:"Create the documentation for this project"
+        eclipse:"Generate Eclipse artifacts for all projects"
+        help\\:projects:"List all projects defined by this buildfile"
+        help\\:tasks:"List all tasks available from this buildfile"
+        idea:"Generate Intellij IDEA artifacts for all projects"
+        idea\\:clean:"Delete the generated Intellij IDEA artifacts"
+        install:"Install packages created by the project"
+        junit\\:report:"Generate JUnit tests report in reports/junit"
+        package:"Create packages"
+        release:"Make a release"
+        test:"Run all tests"
+        test\\:failed:"Run failed tests"
+        uninstall:"Remove previously installed packages"
+        upload:"Upload packages created by the project")
+	    
+   _describe -t commands 'buildr command' cmds && ret=0
+  ;;
+  args)
+      case $line[1] in
+      
+      install)
+     #   _deb_packages uninstalled && ret=0
+      ;;
+      *)
+        (( ret )) && _message 'no more arguments'
+      ;;
+    esac
+    ;;	
+esac
+
+return ret
+_buildr "$0"
+
