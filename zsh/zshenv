@@ -31,61 +31,51 @@ export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 # et rwxr-xr-x pour les répertoires crées
 umask 022
 
-# Proxy HTTP / FTP sans mot de passe
-PROXY_HOST=localhost
-PROXY_PORT=8888
-NO_PROXY='127.0.0.1,localhost'
-export http_proxy="http://$PROXY_HOST:$PROXY_PORT"
-export https_proxy=$http_proxy
-export ftp_proxy=$http_proxy
-export no_proxy=$NO_PROXY
-export HTTP_PROXY=$http_proxy
-export HTTPS_PROXY=$https_proxy
-export NO_PROXY=$NO_PROXY
-# Proxy HTTP / FTP avec mot de passe
-#export http_proxy="http://login:password@proxy.exemple.org:8080"
-#export ftp_proxy="ftp://login:password@proxy.exemple.org:8080"
-export SOAP_USE_PROXY=on
-export soap_use_proxy=on
+define_proxy(){
+    # Proxy HTTP / FTP sans mot de passe
+    PROXY_HOST=localhost
+    PROXY_PORT=8888
+    NO_PROXY='127.0.0.1,localhost'
+    export http_proxy="http://$PROXY_HOST:$PROXY_PORT"
+    export https_proxy=$http_proxy
+    export ftp_proxy=$http_proxy
+    export no_proxy=$NO_PROXY
+    export HTTP_PROXY=$http_proxy
+    export HTTPS_PROXY=$https_proxy
+    export NO_PROXY=$NO_PROXY
+    # Proxy HTTP / FTP avec mot de passe
+    #export http_proxy="http://login:password@proxy.exemple.org:8080"
+    #export ftp_proxy="ftp://login:password@proxy.exemple.org:8080"
 
-# Ne pas passer par le proxy pour les domaines locaux
-#export no_proxy="exemple.org"
+    # Java
+    export JAVA_PROXY_ARG="-Dhttp.proxyHost=$PROXY_HOST -Dhttp.proxyPort=$PROXY_PORT -Dhttp.nonProxyHosts=$NO_PROXY -Dhttps.proxyHost=$PROXY_HOST -Dhttps.proxyPort=$PROXY_PORT -Dhttps.nonProxyHosts=$NO_PROXY"
+}
 
-#export LESSOPEN="|/usr/bin/lesspipe %s"
-#export LESSCHARSET=utf-8
+export JAVA_HOME="/opt/jdk8"
+export SCALA_HOME="/opt/scala"
+export SBT_HOME="/opt/sbt"
+export TOOLSDEV_HOME=$HOME/tools-dev/
 
-# Java
-export JAVA_HOME="/opt/product/jdk"
-JAVA_PROXY_ARG="-Dhttp.proxyHost=$PROXY_HOST -Dhttp.proxyPort=$PROXY_PORT -Dhttp.nonProxyHosts=$NO_PROXY -Dhttps.proxyHost=$PROXY_HOST -Dhttps.proxyPort=$PROXY_PORT -Dhttps.nonProxyHosts=$NO_PROXY"
 #export CLASSPATH=/usr/share/java/:/usr/local/share/java/
 export JAVA_OPTS=$JAVA_PROXY_ARG
-export GLASSFISH_HOME=/opt/product/glassfish3/glassfish
-export AS_ADMIN_PORT=4848
-export AS_ADMIN_HOST=localhost
+export SBT_OPTS="-Xms512M -Xmx1536M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256M"
 export PGHOST=localhost
 export PGUSER=
 export GREP_COLOR=auto
-export ANT_HOME=/opt/product/ant
+export ANT_HOME=/opt/ant
 export ANT_ARGS="-logger org.apache.tools.ant.listener.AnsiColorLogger"
 export ANT_OPTS="-Xmx1024m -XX:PermSize=128m -XX:MaxPermSize=128m $JAVA_PROXY_ARG"
 export MAVEN_OPTS="-Xmx256m -XX:MaxPermSize=256m -Dmaven.artifact.threads=20 $JAVA_PROXY_ARG"
-export MAVEN_HOME=/opt/product/maven 
+export MAVEN_HOME=/opt/maven 
 export M2_HOME=$MAVEN_HOME
-export GRADLE_HOME=/opt/product/gradle/
-#export ORACLE_HOME=/usr/lib/oracle/11.2/client
-#export TNS_ADMIN=/etc/oracle
-export PHP_HOME=/opt/product/php-5.4/
-export PYTHON27_HOME=/opt/product/python/python2.7
-export PYTHON3_HOME=/opt/product/python/python3
-export LOGSTASH_HOME=/opt/product/logstash/
-export WIRESHARK_HOME=/opt/product/wireshark/
-export TEXLIVE_HOME=/home/cynoffic/texlive/2014/
+export GRADLE_HOME=/opt/gradle/
+export CASSANDRA_HOME=/opt/cassandra/
 
-export MANPATH=$TEXLIVE_HOME/bin/x86_64-linux/:/opt/product/user/share/man/:$JAVA_HOME/man:$WIRESHARK_HOME/share/man:$PYTHON3_HOME/share/man:$PYTHON27_HOME/share/man:$PHP_HOME/php/man:$MANPATH
+export MANPATH=$JAVA_HOME/man:$SCALA_HOME/man:$MANPATH
 
-export PATH=~/bin:~/usr/bin:$PYTHON3_HOME/bin:$PYTHON27_HOME/bin:/opt/product/python/python2.7/bin:/opt/product/user/bin:~/.local/bin:~/usr/bin:~/scripts:$PATH:$JAVA_HOME/bin:$ANT_HOME/bin:$GRADLE_HOME/bin:$ORACLE_HOME/bin:~/bin:$GLASSFISH_HOME/bin:$PHP_HOME/bin:$LOGSTASH_HOME/bin:$WIRESHARK_HOME/bin:/usr/hs/bin/:$HOME/.cabal/bin
+export PATH=$TOOLSDEV_HOME/bin:~/bin:~/usr/bin::~/.local/bin:~/usr/bin:~/scripts:$PATH:$JAVA_HOME/bin:$SCALA_HOME/bin:$SBT_HOME/bin:$ANT_HOME/bin:$GRADLE_HOME/bin:$CASSANDRA_HOME/bin:$PATH
 
+export FPATH=~/tools-dev/zsh/site-functions:$FPATH
 
-export MANPATH=$PHP_HOME/php/man:$JAVA_HOME/man:$MANPATH
 
 
