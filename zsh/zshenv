@@ -61,7 +61,7 @@ export JAVA_OPTS=$JAVA_PROXY_ARG
 export SBT_OPTS="-Xms512M -Xmx1536M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256M"
 export PGHOST=localhost
 export PGUSER=
-export GREP_COLOR=auto
+export GREP_COLOR='00;38;5;226'
 export ANT_HOME=/opt/ant
 export ANT_ARGS="-logger org.apache.tools.ant.listener.AnsiColorLogger"
 export ANT_OPTS="-Xmx1024m -XX:PermSize=128m -XX:MaxPermSize=128m $JAVA_PROXY_ARG"
