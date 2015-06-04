@@ -55,6 +55,8 @@ alias aptf='aptitude forget-new'
 
 alias sshr='ssh -X root@127.0.0.1'
 
+alias free='free -h'
+
 #
 # 2. Prompt et Définition des touches
 #
