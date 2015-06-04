@@ -8,7 +8,7 @@ export XDG_DATA_HOME=$HOME/.local/share
 export XDG_DATA_DIRS=$XDG_DATA_HOME:$XDG_DATA_DIRS
 
 # Function/completion zsh
-export FPATH=~/.local/share/zsh/site-functions/:/usr/local/share/zsh/site-functions/:$FPATH
+export FPATH=~/tools-dev/zsh/site-functions:~/.local/share/zsh/site-functions/:/usr/local/share/zsh/site-functions/:$FPATH
 
 # Viewer/Editeur par defaut (pour Crontab, CVS,...)
 export VISUAL="vim"
@@ -16,6 +16,7 @@ export EDITOR="vim"
 export PAGER="less"
 export LESSOPEN="|/usr/bin/lesspipe %s"
 export PAGER=less
+
 # Man page en couleur
 export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
 export LESS_TERMCAP_md=$'\E[01;38;5;74m'  # begin bold
@@ -25,8 +26,12 @@ export LESS_TERMCAP_so=$'\E[38;5;246m'    # begin standout-mode - info box
 export LESS_TERMCAP_ue=$'\E[0m'           # end underline
 export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 
+export GREP_COLOR='00;38;5;226'
 
-#case 
+# Mail
+export MAIL=~/Maildir
+
+#case
 # Permissions rw-r--r-- pour les fichiers crées
 # et rwxr-xr-x pour les répertoires crées
 umask 022
@@ -48,34 +53,36 @@ define_proxy(){
     #export ftp_proxy="ftp://login:password@proxy.exemple.org:8080"
 
     # Java
-    export JAVA_PROXY_ARG="-Dhttp.proxyHost=$PROXY_HOST -Dhttp.proxyPort=$PROXY_PORT -Dhttp.nonProxyHosts=$NO_PROXY -Dhttps.proxyHost=$PROXY_HOST -Dhttps.proxyPort=$PROXY_PORT -Dhttps.nonProxyHosts=$NO_PROXY"
+    #export JAVA_PROXY_ARG="-Dhttp.proxyHost=$PROXY_HOST -Dhttp.proxyPort=$PROXY_PORT -Dhttp.nonProxyHosts=$NO_PROXY -Dhttps.proxyHost=$PROXY_HOST -Dhttps.proxyPort=$PROXY_PORT -Dhttps.nonProxyHosts=$NO_PROXY"
 }
 
-export JAVA_HOME="/opt/jdk8"
-export SCALA_HOME="/opt/scala"
-export SBT_HOME="/opt/sbt"
 export TOOLSDEV_HOME=$HOME/tools-dev/
 
-#export CLASSPATH=/usr/share/java/:/usr/local/share/java/
+export JAVA_HOME="/usr/lib/jvm/jdk-8-oracle-x64"
 export JAVA_OPTS=$JAVA_PROXY_ARG
-export SBT_OPTS="-Xms512M -Xmx1536M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256M"
+
+export SCALA_HOME="/opt/scala"
+export SBT_HOME="/opt/sbt"
+export SBT_OPTS="-Xms512M -Xmx1536M -Xss1M -XX:+CMSClassUnloadingEnabled"
+
 export PGHOST=localhost
 export PGUSER=
-export GREP_COLOR='00;38;5;226'
-export ANT_HOME=/opt/ant
+
+export ANT_HOME=/usr/share/ant/
 export ANT_ARGS="-logger org.apache.tools.ant.listener.AnsiColorLogger"
-export ANT_OPTS="-Xmx1024m -XX:PermSize=128m -XX:MaxPermSize=128m $JAVA_PROXY_ARG"
-export MAVEN_OPTS="-Xmx256m -XX:MaxPermSize=256m -Dmaven.artifact.threads=20 $JAVA_PROXY_ARG"
+export ANT_OPTS="-Xmx1024m $JAVA_PROXY_ARG"
+
 export MAVEN_HOME=/opt/maven 
 export M2_HOME=$MAVEN_HOME
+export MAVEN_OPTS="-Xmx256m -Dmaven.artifact.threads=20 $JAVA_PROXY_ARG"
+
 export GRADLE_HOME=/opt/gradle/
-export CASSANDRA_HOME=/opt/cassandra/
+
+
+# Overide custom variable 
+. ~/.zshenv_custom
 
 export MANPATH=$JAVA_HOME/man:$SCALA_HOME/man:$MANPATH
-
-export PATH=$TOOLSDEV_HOME/bin:~/bin:~/usr/bin::~/.local/bin:~/usr/bin:~/scripts:$PATH:$JAVA_HOME/bin:$SCALA_HOME/bin:$SBT_HOME/bin:$ANT_HOME/bin:$GRADLE_HOME/bin:$CASSANDRA_HOME/bin:$PATH
-
-export FPATH=~/tools-dev/zsh/site-functions:$FPATH
-
+export PATH=~/bin:~/usr/bin::~/.local/bin:~/usr/bin:~/scripts:$PATH:$JAVA_HOME/bin:$SCALA_HOME/bin:$SBT_HOME/bin:$ANT_HOME/bin:$GRADLE_HOME/bin:$CASSANDRA_HOME/bin:$PATH:$TOOLSDEV_HOME/bin
 
 
