@@ -11,5 +11,5 @@
 # The top component report has the id org.eclipse.mat.api:top_components
 #
 
-java -Xmx2048M -jar /opt/product/eclipse/plugins/org.eclipse.equinox.launcher_1*.jar -consoleLog -application org.eclipse.mat.api.parse "$@"
+java -Xmx4048M -jar /opt/mat/plugins/org.eclipse.equinox.launcher_1*.jar -consoleLog -application org.eclipse.mat.api.parse "$@"
 
