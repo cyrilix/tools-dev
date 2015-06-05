@@ -372,10 +372,6 @@ zstyle -s ':completion:*:hosts' hosts _ssh_config
 [[ -r ~/.ssh/config ]] && _ssh_config+=($(cat ~/.ssh/config | sed -ne 's/Host[=\t ]//p'))
 zstyle ':completion:*:hosts' hosts $_ssh_config
 
+# Load custom zshrc
+source ~/.zshrc_custom 
 
-
-# The next line updates PATH for the Google Cloud SDK.
-source '/opt/google-cloud-sdk/path.zsh.inc'
-
-# The next line enables bash completion for gcloud.
-source '/opt/google-cloud-sdk/completion.zsh.inc'
