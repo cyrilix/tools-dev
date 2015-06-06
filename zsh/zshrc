@@ -373,5 +373,8 @@ start_ssh_agent(){
 zstyle ':completion:*:*:*' hosts $ssh_config_hosts $ssh_known_hosts
 
 # Load custom zshrc
-source ~/.zshrc_custom 
+if [ -f $HOME/.zshrc_custom ]; then
+    source $HOME/.zshrc_custom
+fi
+
 

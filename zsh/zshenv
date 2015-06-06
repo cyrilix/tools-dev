@@ -80,7 +80,9 @@ export GRADLE_HOME=/opt/gradle/
 
 
 # Overide custom variable 
-. ~/.zshenv_custom
+if [ -f $HOME/.zshenv_custom ]; then
+    source $HOME/.zshenv_custom
+fi
 
 export MANPATH=$JAVA_HOME/man:$SCALA_HOME/man:$MANPATH
 export PATH=~/bin:~/usr/bin::~/.local/bin:~/usr/bin:~/scripts:$PATH:$JAVA_HOME/bin:$SCALA_HOME/bin:$SBT_HOME/bin:$ANT_HOME/bin:$GRADLE_HOME/bin:$CASSANDRA_HOME/bin:$PATH:$TOOLSDEV_HOME/bin
