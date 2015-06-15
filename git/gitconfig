@@ -24,6 +24,7 @@
     dot = !sh -c 'git-dot'
 	co = checkout
 	history = log --all --graph --abbrev-commit --pretty=format:'%C(auto)%h [%ad] %d %s %C(reset) - %aN' --date=short
+    h = log --all --graph --abbrev-commit --pretty=format:'%C(auto)%h [%ad] %d %s %C(reset) - %aN' --date=short
 
 [mergetool]
 	prompt = false
