@@ -141,6 +141,8 @@ _ansible-playbook ()
     "(-i --inventory-file)"{-i,--inventory-file}"[INVENTORY specify inventory host file]:inventory file:_files"\
     "(-l --limit)"{-l,--limit}"[SUBSET further limit selected hosts to an additional pattern]:subset pattern:->pattern"\
     '--list-hosts[outputs a list of matching hosts. Does not execute anything else]'\
+    '--list-tags[list all available tags]'\
+    '--list-tasks[list all tasks that would be executed]'\
     "(-M --module-path)"{-M,--module-path}"[MODULE_PATH specify path to module library (default=None)]:module path:_files -/"\
     "--private-key[PRIVATE_KEY_FILE use this file to authenticate the connection]:private key file:_files"\
     "--skip-tags[SKIP_TAGS only run plays and tasks whose tags do not match these values]:skip tags:(SKIP_TAGS)"\
