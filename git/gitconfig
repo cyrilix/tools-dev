@@ -15,7 +15,7 @@
 	encoding = utf-8
 	spellingdictionary = none
 [merge]
-	tool = diffuse
+	tool = kdiff3
 [diff]
 	guitool = kompare
 
