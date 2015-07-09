@@ -29,6 +29,7 @@
 [mergetool]
 	prompt = false
 	keepBackup = false
+	keepTemporaries = false
 
 [pull]
 	rebase = true
