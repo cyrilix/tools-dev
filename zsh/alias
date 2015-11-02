@@ -1,0 +1,8 @@
+. ~/.aliases_custom
+
+alias diff=colordiff
+alias gh="git history"
+alias dup="docker-compose up -d"
+alias dlog="docker-compose logs"
+alias nova='mplayer http://broadcast.infomaniak.net/radionova-high.mp3 -softvol -volume 50'
+
