@@ -21,39 +21,42 @@ filter_linux () {
         	-e "
 	    		s/\(.*\)\(WARN\)\(.*\)/"$JAUNE"\1"$JAUNE_BOLD"\2"$JAUNE'\3'$RESET"/g
 	    		T error # Si la substitution échoue, on saute sur le motif erreur
-           		b # sinon on saute à la fin
+           		b escape_eol # sinon on saute à la fin
 
 		: error # Début de colorisation des erreurs
 	    		s/\(.*\)\(ERROR\)\(.*\)/"$ROUGE"\1"$ROUGE_BOLD"\2"$ROUGE"\3"$RESET"/g 
 	    		T severe
-			b
+			b escape_eol
 	    	: severe
 			s/\(.*\)\(SEVERE\)\(.*\)/"$ROUGE"\1"$ROUGE_BOLD"\2"$ROUGE"\3"$RESET"/
 			T info
-			b
+			b escape_eol
 	    	: info
 	    		s/\(.*\)\(INFO\)\(.*\)/"$VERT"\1"$VERT_BOLD"\2"$VERT"\3"$RESET"/g
 	    		T debug
-			b
+			b escape_eol
 
 	    	: debug
         		s/\(.*\)\(DEBUG\)\(.*\)/"$BLEU"\1"$BLEU_BOLD"\2"$BLEU"\3"$RESET"/g
 			T fonctionnelle 
-			b	
+			b escape_eol	
 	    
 	    	: fonctionnelle
 	    		s/\(.* FONCTIONNELLE .*\)/"$JAUNE"&"$RESET"/g 
 			T technique
-			b
+			b escape_eol
 
              	: technique
    	    		s/\(.* TECHNIQUE .*\)/"$ROUGE"&"$RESET"/g
 			T ok
-			b
+			b escape_eol
 
 	     	: ok
         		s/\(.* OK \)/"$VERT"&"$RESET"/g
-
+		: escape_eol
+			s/#011/\t/g
+		: escape_tab
+			s/#012/\n/g
 	"
 }
 
