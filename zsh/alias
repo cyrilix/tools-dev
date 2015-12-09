@@ -2,6 +2,8 @@ alias diff=colordiff
 alias gh="git history"
 alias dup="docker-compose up -d"
 alias dlog="docker-compose logs"
+alias docker_clean_images="docker rmi `docker images| grep none | awk '{print $3}'`"
+
 alias nova='mplayer http://broadcast.infomaniak.net/radionova-high.mp3 -softvol -volume 50'
 
 if [ -f ~/.alias_custom ] 
