@@ -85,6 +85,6 @@ if [ -f $HOME/.zshenv_custom ]; then
 fi
 
 export MANPATH=$JAVA_HOME/man:$SCALA_HOME/man:$MANPATH
-export PATH=~/bin:~/usr/bin::~/.local/bin:~/usr/bin:~/scripts:$PATH:$JAVA_HOME/bin:$SCALA_HOME/bin:$SBT_HOME/bin:$ANT_HOME/bin:$GRADLE_HOME/bin:$CASSANDRA_HOME/bin:$PATH:$TOOLSDEV_HOME/bin
+export PATH=~/bin:~/usr/bin:~/.local/bin:~/usr/bin:~/scripts:$PATH:$JAVA_HOME/bin:$SCALA_HOME/bin:$SBT_HOME/bin:$ANT_HOME/bin:$GRADLE_HOME/bin:$PATH:$TOOLSDEV_HOME/bin
 
 
