@@ -17,6 +17,8 @@ export PAGER="less"
 export LESSOPEN="|/usr/bin/lesspipe %s"
 export PAGER=less
 
+export GPG_TTY=`tty`
+
 # Man page en couleur
 export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
 export LESS_TERMCAP_md=$'\E[01;38;5;74m'  # begin bold

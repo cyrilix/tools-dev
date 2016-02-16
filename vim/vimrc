@@ -66,3 +66,6 @@ set shiftwidth=4
 " Désactivation du folding pour les fichiers markdown
 let g:vim_markdown_folding_disabled=1
 
+" GPG
+source ~/.config/vim-gpg
+
