@@ -6,6 +6,9 @@ alias docker_clean_images='docker rmi `docker images| grep none | awk "{print $3
 
 alias nova='mplayer http://broadcast.infomaniak.net/radionova-high.mp3 -softvol -volume 50'
 
+alias lvm_devices="lvs -a -o +devices"
+alias lvm_mirror_status='lvs -a -o +devices|grep mlog'
+
 if [ -f ~/.alias_custom ] 
 then
     source ~/.alias_custom
