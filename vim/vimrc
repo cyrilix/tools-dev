@@ -67,5 +67,7 @@ set shiftwidth=4
 let g:vim_markdown_folding_disabled=1
 
 " GPG
-source ~/.config/vim-gpg
+if !empty(glob("~/.config/vim-gpg"))
+    source ~/.config/vim-gpg
+endif
 
