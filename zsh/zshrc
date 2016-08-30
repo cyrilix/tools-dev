@@ -53,7 +53,7 @@ alias aptu='apt update'
 alias aptlu='apt list --upgradable'
 alias aptf='aptitude forget-new'
 
-alias sshr="ssh -X root@$HOST"
+alias sshr="ssh -X root@$HOST.local"
 
 alias free='free -h'
 
