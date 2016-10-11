@@ -1,6 +1,9 @@
 # Locale
 export LANG="fr_FR.UTF-8"
 
+# Prefer gtk2 on eclispe and co
+export SWT_GTK3=0
+
 # Autorisation sur l'affichage
 #xhost + &> /dev/null
 
