@@ -34,7 +34,6 @@ alias llac='ls -la --color=always'
 
 # Quelques alias pratiques
 alias c='clear'
-alias less='less --quiet -R'
 alias s='cd ..'
 alias df='df --human-readable'
 alias du='du --human-readable'

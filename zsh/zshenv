@@ -15,7 +15,6 @@ export VISUAL="vim"
 export EDITOR="vim"
 export PAGER="less"
 export LESSOPEN="|/usr/bin/lesspipe %s"
-export PAGER=less
 
 export GPG_TTY=`tty`
 
@@ -27,6 +26,25 @@ export LESS_TERMCAP_se=$'\E[0m'           # end standout-mode
 export LESS_TERMCAP_so=$'\E[38;5;246m'    # begin standout-mode - info box
 export LESS_TERMCAP_ue=$'\E[0m'           # end underline
 export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
+
+# Autres couleurs
+# LESS_TERMCAP_mb=$'\E[01;31m'
+# LESS_TERMCAP_md=$'\E[01;31m'
+# LESS_TERMCAP_me=$'\E[0m'
+# LESS_TERMCAP_se=$'\E[0m'
+# LESS_TERMCAP_so=$'\E[01;44;33m'
+# LESS_TERMCAP_ue=$'\E[0m'
+# LESS_TERMCAP_us=$'\E[01;32m'
+
+# Enable less flags
+# * F : quitte less si le contenu qu'il tente d'afficher fais moins d'un écran (très utile avec l'option X)
+# * S : ne pas wrapper les lignes plus larges que l'écran. Je trouve que c'est plus lisible pour les log (les débuts de lignes sont bien alignées)
+# * R : pour autoriser les séquences AINSI (utile pour la couleur)
+# * X : ne nettoie pas l'écran à la fermeture en combinaison de -F less devient utilisable comme un cat pour pas mal de choses. Ça permet de continuer de voir ce qu'il y avait dans un man, 
+#       même une fois quitter (et donc de ne pas avoir besoin de 2 shells). 
+# * I : la recherche est insensible à la casse sauf si cette dernière contient des lettres majuscules
+export LESS="-FSRXI"
+
 
 export GREP_COLOR='00;38;5;226'
 
