@@ -81,7 +81,7 @@ define_proxy(){
 
 export TOOLSDEV_HOME=$HOME/tools-dev/
 
-export JAVA_HOME="/usr/lib/jvm/jdk-8-oracle-x64"
+export JAVA_HOME="/usr/lib/jvm/oracle-java8-jdk-amd64"
 export JAVA_OPTS=$JAVA_PROXY_ARG
 
 export SCALA_HOME="/opt/scala"
