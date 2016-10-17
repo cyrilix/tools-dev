@@ -40,12 +40,12 @@ export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 # LESS_TERMCAP_us=$'\E[01;32m'
 
 # Enable less flags
-# * F : quitte less si le contenu qu'il tente d'afficher fais moins d'un écran (très utile avec l'option X)
-# * S : ne pas wrapper les lignes plus larges que l'écran. Je trouve que c'est plus lisible pour les log (les débuts de lignes sont bien alignées)
-# * R : pour autoriser les séquences AINSI (utile pour la couleur)
-# * X : ne nettoie pas l'écran à la fermeture en combinaison de -F less devient utilisable comme un cat pour pas mal de choses. Ça permet de continuer de voir ce qu'il y avait dans un man, 
-#       même une fois quitter (et donc de ne pas avoir besoin de 2 shells). 
-# * I : la recherche est insensible à la casse sauf si cette dernière contient des lettres majuscules
+# * F : quitte less si le contenu qu'il tente d'afficher fais moins d'un Ã©cran (trÃ¨s utile avec l'option X)
+# * S : ne pas wrapper les lignes plus larges que l'Ã©cran. Je trouve que c'est plus lisible pour les log (les dÃ©buts de lignes sont bien alignÃ©es)
+# * R : pour autoriser les sÃ©quences AINSI (utile pour la couleur)
+# * X : ne nettoie pas l'Ã©cran Ã  la fermeture en combinaison de -F less devient utilisable comme un cat pour pas mal de choses. Ã‡a permet de continuer de voir ce qu'il y avait dans un man, 
+#       mÃªme une fois quitter (et donc de ne pas avoir besoin de 2 shells). 
+# * I : la recherche est insensible Ã  la casse sauf si cette derniÃ¨re contient des lettres majuscules
 export LESS="-FSRXI"
 
 
@@ -55,8 +55,8 @@ export GREP_COLOR='00;38;5;226'
 export MAIL=~/Maildir
 
 #case
-# Permissions rw-r--r-- pour les fichiers crées
-# et rwxr-xr-x pour les répertoires crées
+# Permissions rw-r--r-- pour les fichiers crÃ©es
+# et rwxr-xr-x pour les rÃ©pertoires crÃ©es
 umask 022
 
 define_proxy(){
