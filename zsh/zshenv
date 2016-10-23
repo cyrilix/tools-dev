@@ -43,8 +43,8 @@ export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 # * F : quitte less si le contenu qu'il tente d'afficher fais moins d'un écran (très utile avec l'option X)
 # * S : ne pas wrapper les lignes plus larges que l'écran. Je trouve que c'est plus lisible pour les log (les débuts de lignes sont bien alignées)
 # * R : pour autoriser les séquences AINSI (utile pour la couleur)
-# * X : ne nettoie pas l'écran à la fermeture en combinaison de -F less devient utilisable comme un cat pour pas mal de choses. Ça permet de continuer de voir ce qu'il y avait dans un man, 
-#       même une fois quitter (et donc de ne pas avoir besoin de 2 shells). 
+# * X : ne nettoie pas l'écran à la fermeture en combinaison de -F less devient utilisable comme un cat pour pas mal de choses. Ça permet de continuer de voir ce qu'il y avait dans un man,
+#       même une fois quitter (et donc de ne pas avoir besoin de 2 shells).
 # * I : la recherche est insensible à la casse sauf si cette dernière contient des lettres majuscules
 export LESS="-FSRXI"
 
@@ -57,6 +57,7 @@ export MAIL=~/Maildir
 #case
 # Permissions rw-r--r-- pour les fichiers crées
 # et rwxr-xr-x pour les répertoires crées
+
 umask 022
 
 define_proxy(){
@@ -95,14 +96,14 @@ export ANT_HOME=/usr/share/ant/
 export ANT_ARGS="-logger org.apache.tools.ant.listener.AnsiColorLogger"
 export ANT_OPTS="-Xmx1024m $JAVA_PROXY_ARG"
 
-export MAVEN_HOME=/opt/maven 
+export MAVEN_HOME=/opt/maven
 export M2_HOME=$MAVEN_HOME
 export MAVEN_OPTS="-Xmx256m -Dmaven.artifact.threads=20 $JAVA_PROXY_ARG"
 
 export GRADLE_HOME=/opt/gradle/
 
 
-# Overide custom variable 
+# Overide custom variable
 if [ -f $HOME/.zshenv_custom ]; then
     source $HOME/.zshenv_custom
 fi
