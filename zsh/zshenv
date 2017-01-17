@@ -102,6 +102,7 @@ export MAVEN_OPTS="-Xmx256m -Dmaven.artifact.threads=20 $JAVA_PROXY_ARG"
 
 export GRADLE_HOME=/opt/gradle/
 
+export ANSIBLE_VAULT_PASSWORD_FILE=~/.config/ansible_vault
 
 # Overide custom variable
 if [ -f $HOME/.zshenv_custom ]; then
