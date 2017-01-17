@@ -14,6 +14,8 @@
 [gui]
 	encoding = utf-8
 	spellingdictionary = none
+	fontui = -family \"DejaVu Sans\" -size 10 -weight normal -slant roman -underline 0 -overstrike 0
+	fontdiff = -family \"DejaVu Sans Mono\" -size 10 -weight normal -slant roman -underline 0 -overstrike 0
 [merge]
 	tool = kdiff3
 [diff]
@@ -37,3 +39,5 @@
 [push] 
     default = simple
 
+[rerere]
+	enabled = true
