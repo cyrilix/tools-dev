@@ -291,7 +291,7 @@ DISABLE_AUTO_UPDATE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-prompt colorize mvn python ant colored-man docker docker-compose gradle history jsontools jump mvn pip postgres rsync redis-cli tmux sudo github systemd zsh-syntax-highlighting)
+plugins=(common-aliases git git-prompt colorize mvn python ant colored-man docker docker-compose gradle history jsontools jump mvn pip postgres rsync redis-cli tmux sudo github systemd zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
