@@ -51,6 +51,8 @@ export LESS="-FSRXI"
 
 export GREP_COLOR='00;38;5;226'
 
+export LVM_VG_NAME=`hostname --short`
+
 # Mail
 export MAIL=~/Maildir
 
