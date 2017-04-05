@@ -23,11 +23,6 @@ alias -s jpg='display'
 alias -s png='display'
 alias -s gif='display'
 
-# Alias personnels
-if [ -f ~/.alias ]; then
-    .  $HOME/.alias
-fi
-
 
 #
 # 2. Prompt et Définition des touches
@@ -291,7 +286,7 @@ DISABLE_AUTO_UPDATE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(common-aliases git git-prompt colorize mvn python ant colored-man docker docker-compose gradle history jsontools jump mvn pip postgres rsync redis-cli tmux sudo github systemd zsh-syntax-highlighting)
+plugins=(git git-prompt colorize mvn python ant colored-man docker docker-compose gradle history jsontools jump mvn pip postgres rsync redis-cli tmux sudo github systemd zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -333,4 +328,10 @@ if [ -f $HOME/.zshrc_custom ]; then
 fi
 
 export ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor line)
+
+# Alias personnels
+if [ -f ~/.alias ]; then
+    .  $HOME/.alias
+fi
+
 

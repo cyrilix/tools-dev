@@ -9,12 +9,12 @@ alias mv='mv --interactive'
 #alias rm='rm --interactive'
 
 # Raccourcis pour 'ls'
-alias ll='ls -l'
-alias llc='ls -l --color=always'
+alias ll='ls -lh'
+alias llc='ls -lh --color=always'
 alias la='ls -a'
 alias lac='ls -a --color=always'
-alias lla='ls -la'
-alias llac='ls -la --color=always'
+alias lla='ls -lha'
+alias llac='ls -lha --color=always'
 
 # Quelques alias pratiques
 alias c='clear'
@@ -52,6 +52,8 @@ alias nova='mplayer http://broadcast.infomaniak.net/radionova-high.mp3 -softvol 
 
 alias lvm_devices="lvs -a -o +devices"
 alias lvm_mirror_status='lvs -a -o +devices|grep mlog'
+
+alias v=view
 
 if [ -f ~/.alias_custom ]
 then
