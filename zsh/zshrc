@@ -37,12 +37,12 @@ alias -s gif='display'
 # La liste des actions est disponible dans "man zshzle".
 
 # Correspondance touches-fonction
-bindkey -e
-bindkey '^A'    beginning-of-line       # Home
-bindkey '^E'    end-of-line             # End
-bindkey '^D'    delete-char             # Del
-bindkey '[3~' delete-char             # Del
-bindkey '[2~' overwrite-mode          # Insert
+bindkey -v
+#bindkey '^A'    beginning-of-line       # Home
+#bindkey '^E'    end-of-line             # End
+#bindkey '^D'    delete-char             # Del
+#bindkey '[3~' delete-char             # Del
+#bindkey '[2~' overwrite-mode          # Insert
 bindkey '[5~' history-search-backward # PgUp
 bindkey '[6~' history-search-forward  # PgDn
 
