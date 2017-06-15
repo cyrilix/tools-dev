@@ -328,6 +328,7 @@ if [ -f $HOME/.zshrc_custom ]; then
 fi
 
 export ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor line)
+export ZSH_HIGHLIGHT_STYLES[globbing]="fg=cyan"
 
 # Alias personnels
 if [ -f ~/.alias ]; then
