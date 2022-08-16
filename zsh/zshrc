@@ -96,6 +96,7 @@ else
   export PS1='$VIOLET%T $ROUGE%n$JAUNE@$COLOR_HOST%m$NONE${vcs_info_msg_0_}$JAUNE%#$NONE '
 fi
 
+
 # Console linux, dans un screen ou un rxvt
 if [ "$TERM" = "linux" -o "$TERM" = "screen" -o "$TERM" = "rxvt" ]
 then
@@ -286,7 +287,7 @@ DISABLE_AUTO_UPDATE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-prompt colorize mvn python ant colored-man docker docker-compose gradle history jsontools jump mvn pip postgres rsync redis-cli tmux sudo github systemd zsh-syntax-highlighting)
+plugins=(git git-prompt colorize python tmux history jsontools pip postgres rsync sudo systemd zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -334,5 +335,7 @@ export ZSH_HIGHLIGHT_STYLES[globbing]="fg=cyan"
 if [ -f ~/.alias ]; then
     .  $HOME/.alias
 fi
+
+eval "$(direnv hook zsh)"
 
 
