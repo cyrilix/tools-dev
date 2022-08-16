@@ -48,6 +48,7 @@ alias docker_clean_images='docker rmi `docker images| grep none | awk "{print $3
 alias docker_clean='docker volume rm $(docker volume ls -qf dangling=true)'
 alias dkc='docker-compose'
 
+alias k='kubectl'
 alias nova='mplayer http://broadcast.infomaniak.net/radionova-high.mp3 -softvol -volume 50'
 
 alias lvm_devices="sudo lvs -a -o +devices"
