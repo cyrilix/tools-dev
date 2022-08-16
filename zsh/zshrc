@@ -328,7 +328,11 @@ if [ -f $HOME/.zshrc_custom ]; then
     source $HOME/.zshrc_custom
 fi
 
-export ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor line)
+if [ $commands[kubectl] ]; then
+  source <(kubectl completion zsh)
+fi
+
+export ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern line)
 export ZSH_HIGHLIGHT_STYLES[globbing]="fg=cyan"
 
 # Alias personnels
